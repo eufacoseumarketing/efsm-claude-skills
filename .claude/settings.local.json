@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(chmod +x \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install-all.sh\" \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/package.sh\")",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" efsm-copy)"
     ]
   }
 }

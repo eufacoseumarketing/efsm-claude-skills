@@ -50,3 +50,4 @@ cp skill.md ~/.claude/skills/nome-da-skill.md
 | Skill | Descrição |
 |-------|-----------|
 | [exemplo-skill](skills/exemplo-skill/README.md) | Template de exemplo para criar novas skills |
+| [efsm-copy](skills/efsm-copy/README.md) | Copywriting para Landing Pages, Meta Ads, artigos de blog e redes sociais |
