@@ -51,3 +51,4 @@ cp skill.md ~/.claude/skills/nome-da-skill.md
 |-------|-----------|
 | [exemplo-skill](skills/exemplo-skill/README.md) | Template de exemplo para criar novas skills |
 | [efsm-copy](skills/efsm-copy/README.md) | Copywriting para Landing Pages, Meta Ads, artigos de blog e redes sociais |
+| [gabs-design](skills/gabs-design/README.md) | Engenharia de prompt para IA generativa (Gemini, Firefly, DALL-E, Midjourney) |

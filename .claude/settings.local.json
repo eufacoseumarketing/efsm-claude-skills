@@ -24,7 +24,9 @@
       "WebFetch(domain:www.hubspot.com)",
       "WebFetch(domain:marketingexamples.com)",
       "WebFetch(domain:copyblogger.com)",
-      "WebFetch(domain:www.wordstream.com)"
+      "WebFetch(domain:www.wordstream.com)",
+      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" gabs-design)",
+      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/package.sh\" gabs-design)"
     ]
   }
 }
