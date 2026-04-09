@@ -13,7 +13,8 @@
       "WebFetch(domain:support.claude.com)",
       "Bash(gh api:*)",
       "Bash(python3 -c \"import sys,json; [print\\(f['name']\\) for f in json.load\\(sys.stdin\\)]\")",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(unzip -l \"/Users/zanatto/Desktop/EFSM Claude Skills/packages/efsm-copy.zip\")"
     ]
   }
 }

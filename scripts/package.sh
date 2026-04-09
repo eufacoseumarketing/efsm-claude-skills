@@ -26,6 +26,9 @@ fi
 mkdir -p "$PACKAGES_DIR"
 OUTPUT="$PACKAGES_DIR/$SKILL_NAME.zip"
 
+# Remove ZIP anterior para evitar arquivos obsoletos
+rm -f "$OUTPUT"
+
 cd "$SKILLS_DIR"
 zip -r "$OUTPUT" "$SKILL_NAME/"
 echo "Pacote gerado: $OUTPUT"
