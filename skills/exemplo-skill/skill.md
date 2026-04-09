@@ -1,11 +1,7 @@
 ---
-name: exemplo-skill
-description: Descrição curta do que essa skill faz. Use verbos no imperativo (ex: "Gera...", "Resume...", "Analisa...").
-author: EFSM
-version: 1.0.0
+name: nome-da-skill
+description: Descrição curta do que essa skill faz. Máximo 200 caracteres. Use verbos no imperativo (ex: "Gera...", "Resume...", "Analisa...").
 ---
-
-# Exemplo Skill
 
 Aqui vai o prompt da skill. Descreva com clareza o que o Claude deve fazer quando essa skill for invocada.
 

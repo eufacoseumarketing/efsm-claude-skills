@@ -16,7 +16,7 @@ if [ -z "$SKILL_NAME" ]; then
   exit 1
 fi
 
-SKILL_FILE="$SKILLS_DIR/$SKILL_NAME/skill.md"
+SKILL_FILE="$SKILLS_DIR/$SKILL_NAME/SKILL.md"
 
 if [ ! -f "$SKILL_FILE" ]; then
   echo "Erro: skill '$SKILL_NAME' não encontrada em $SKILLS_DIR"

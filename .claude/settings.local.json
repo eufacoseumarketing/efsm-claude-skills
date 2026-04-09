@@ -8,7 +8,12 @@
       "Read(//Users/zanatto/.claude/**)",
       "Bash(claude --version)",
       "Bash(mkdir -p ~/.claude/commands)",
-      "Bash(cp ~/.claude/skills/efsm-copy.md ~/.claude/commands/efsm-copy.md)"
+      "Bash(cp ~/.claude/skills/efsm-copy.md ~/.claude/commands/efsm-copy.md)",
+      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/package.sh\" efsm-copy)",
+      "WebFetch(domain:support.claude.com)",
+      "Bash(gh api:*)",
+      "Bash(python3 -c \"import sys,json; [print\\(f['name']\\) for f in json.load\\(sys.stdin\\)]\")",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
