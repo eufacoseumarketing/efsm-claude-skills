@@ -6,7 +6,7 @@ set -e
 
 SKILL_NAME="$1"
 SKILLS_DIR="$(dirname "$0")/../skills"
-TARGET_DIR="$HOME/.claude/skills"
+TARGET_DIR="$HOME/.claude/commands"
 
 if [ -z "$SKILL_NAME" ]; then
   echo "Uso: $0 <nome-da-skill>"

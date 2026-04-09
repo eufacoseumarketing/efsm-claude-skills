@@ -3,7 +3,12 @@
     "allow": [
       "Bash(chmod +x \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install-all.sh\" \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/package.sh\")",
       "Bash(git config:*)",
-      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" efsm-copy)"
+      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" efsm-copy)",
+      "Read(//Users/zanatto/.claude/skills/**)",
+      "Read(//Users/zanatto/.claude/**)",
+      "Bash(claude --version)",
+      "Bash(mkdir -p ~/.claude/commands)",
+      "Bash(cp ~/.claude/skills/efsm-copy.md ~/.claude/commands/efsm-copy.md)"
     ]
   }
 }
