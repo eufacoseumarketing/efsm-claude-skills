@@ -14,7 +14,17 @@
       "Bash(gh api:*)",
       "Bash(python3 -c \"import sys,json; [print\\(f['name']\\) for f in json.load\\(sys.stdin\\)]\")",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(unzip -l \"/Users/zanatto/Desktop/EFSM Claude Skills/packages/efsm-copy.zip\")"
+      "Bash(unzip -l \"/Users/zanatto/Desktop/EFSM Claude Skills/packages/efsm-copy.zip\")",
+      "WebFetch(domain:copyhackers.com)",
+      "WebFetch(domain:www.crazyegg.com)",
+      "WebFetch(domain:neilpatel.com)",
+      "WebFetch(domain:buffer.com)",
+      "WebFetch(domain:optinmonster.com)",
+      "WebFetch(domain:www.semrush.com)",
+      "WebFetch(domain:www.hubspot.com)",
+      "WebFetch(domain:marketingexamples.com)",
+      "WebFetch(domain:copyblogger.com)",
+      "WebFetch(domain:www.wordstream.com)"
     ]
   }
 }
