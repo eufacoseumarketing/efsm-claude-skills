@@ -26,7 +26,11 @@
       "WebFetch(domain:copyblogger.com)",
       "WebFetch(domain:www.wordstream.com)",
       "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/install.sh\" gabs-design)",
-      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/package.sh\" gabs-design)"
+      "Bash(bash \"/Users/zanatto/Desktop/EFSM Claude Skills/scripts/package.sh\" gabs-design)",
+      "Bash(bash scripts/package.sh efsm-n8n)",
+      "Bash(zip -r \"../packages/efsm-n8n.zip\" \"efsm-n8n/\")",
+      "Bash(unzip -o \"/Users/zanatto/Desktop/EFSM Claude Skills/references/skills-copy-social.zip\" -d \"/Users/zanatto/Desktop/EFSM Claude Skills/references/extracted-copy/\")",
+      "Bash(zip -r \"../packages/efsm-copy.zip\" \"efsm-copy/\")"
     ]
   }
 }
