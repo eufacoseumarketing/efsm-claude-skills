@@ -19,11 +19,12 @@ Para localizar o caminho da skill em tempo de execução, use o diretório onde 
 Recebe o ZIP White Label do fornecedor (ex: `WaBaCRM_4.3.30.zip`) e produz o ZIP com a identidade EFSM (ex: `CRMEFSM_4.3.30.zip`), realizando:
 
 1. Descompactar o ZIP original em uma pasta temporária
-2. Editar `manifest.json` (nome e descrição)
-3. Substituir `label/config/utils.json` com os dados da EFSM
-4. Substituir as 3 imagens de marca em `label/icons/plugin/` pelas que estão nesta skill
-5. Recompactar e renomear com o padrão `CRMEFSM_X.X.XX.zip`
-6. Entregar o arquivo para download
+2. Remover arquivos de lixo do macOS (`__MACOSX/`, `.DS_Store`)
+3. Editar `manifest.json` (nome e descrição)
+4. Substituir `label/config/utils.json` com os dados da EFSM
+5. Substituir as 3 imagens de marca em `label/icons/plugin/` pelas que estão nesta skill
+6. Recompactar e renomear com o padrão `CRMEFSM_X.X.XX.zip`
+7. Entregar o arquivo para download
 
 ---
 
@@ -51,14 +52,21 @@ Extraia a versão do nome: ex. `WaBaCRM_4.3.30.zip` → versão `4.3.30`.
 unzip -o "<caminho do zip do fornecedor>" -d /tmp/crm-efsm-work/
 ```
 
-### Passo 3 — Editar manifest.json
-No arquivo `/tmp/crm-efsm-work/manifest.json`, alterar **somente**:
+### Passo 3 — Remover arquivos de lixo do macOS
+O ZIP do fornecedor costuma conter resíduos gerados pelo macOS. Remova-os antes de qualquer edição:
+```bash
+find /tmp/crm-efsm-work -name ".DS_Store" -delete
+rm -rf /tmp/crm-efsm-work/__MACOSX
+```
+
+### Passo 4 — Editar manifest.json
+No arquivo `/tmp/crm-efsm-work/manifest.json`, alterar **somente** os campos abaixo:
 - `"name"` → `"CRM EFSM: Sua principal ferramenta para vendas!"`
 - `"description"` → `"CRM EFSM: Toda conversa é uma oportunidade. Use nosso CRM para transformar leads e vendas"`
 
 Todos os outros campos (`key`, `version`, `permissions`, `content_scripts`, etc.) devem permanecer intactos.
 
-### Passo 4 — Substituir label/config/utils.json
+### Passo 5 — Substituir label/config/utils.json
 Substituir **todo o conteúdo** do arquivo `/tmp/crm-efsm-work/label/config/utils.json` por:
 ```json
 {
@@ -71,8 +79,8 @@ Substituir **todo o conteúdo** do arquivo `/tmp/crm-efsm-work/label/config/util
 }
 ```
 
-### Passo 5 — Substituir as imagens de marca
-As imagens estão na mesma pasta desta skill. Localize o caminho da skill e copie:
+### Passo 6 — Substituir as imagens de marca
+As imagens estão dentro desta skill, na pasta `assets/`. Localize o caminho da skill e copie:
 
 ```bash
 SKILL_DIR="<diretório onde esta skill está instalada>"
@@ -82,20 +90,26 @@ cp "$SKILL_DIR/assets/logo.png"         /tmp/crm-efsm-work/label/icons/plugin/lo
 cp "$SKILL_DIR/assets/plugin_login.png" /tmp/crm-efsm-work/label/icons/plugin/plugin_login.png
 ```
 
-### Passo 6 — Gerar o ZIP final
+### Passo 7 — Gerar o ZIP final
+A limpeza de macOS já foi feita na pasta. Como garantia extra, use os flags de exclusão no zip:
 ```bash
 cd /tmp/crm-efsm-work
 zip -r "/tmp/CRMEFSM_<versão>.zip" . \
   --exclude "*.DS_Store" \
+  --exclude "__MACOSX" \
   --exclude "__MACOSX/*" \
-  --exclude "*/__MACOSX/*"
+  --exclude "*/__MACOSX/*" \
+  --exclude "*/.DS_Store"
 ```
 
-### Passo 7 — Verificar e entregar
+### Passo 8 — Verificar e entregar
 ```bash
 # Confirmar os textos nos JSONs
 unzip -p /tmp/CRMEFSM_<versão>.zip manifest.json
 unzip -p /tmp/CRMEFSM_<versão>.zip label/config/utils.json
+
+# Confirmar que não há lixo de macOS no ZIP
+unzip -l /tmp/CRMEFSM_<versão>.zip | grep -E "__MACOSX|\.DS_Store" && echo "LIXO ENCONTRADO!" || echo "ZIP limpo."
 
 # Confirmar tamanho
 ls -lh /tmp/CRMEFSM_<versão>.zip
@@ -103,7 +117,7 @@ ls -lh /tmp/CRMEFSM_<versão>.zip
 
 Após a verificação, informe ao usuário onde o arquivo foi gerado e disponibilize para download.
 
-### Passo 8 — Limpeza
+### Passo 9 — Limpeza
 ```bash
 rm -rf /tmp/crm-efsm-work/
 ```
@@ -120,6 +134,7 @@ Antes de entregar, confirme:
 - [ ] `label/config/utils.json` → `"nameID"` é `"crmefsm"`
 - [ ] `label/config/utils.json` → `"chromeStoreID"` é `"crmefsm"`
 - [ ] As 3 imagens foram substituídas pelas da EFSM
+- [ ] Nenhum arquivo `__MACOSX` ou `.DS_Store` no ZIP final
 - [ ] Nome do arquivo de saída é `CRMEFSM_X.X.XX.zip` com a versão correta
 - [ ] Arquivo ZIP foi gerado sem erros
 
