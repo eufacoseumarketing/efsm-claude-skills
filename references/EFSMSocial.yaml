@@ -1,0 +1,789 @@
+openapi: "3.0.3"
+info:
+  title: EFSM Social API
+  description: API externa para integração com o sistema EFSM Social de gestão de mídias sociais.
+  version: "1.0.0"
+  contact:
+    name: EFSM Social
+    url: https://social.eufacoseu.marketing
+
+servers:
+  - url: https://edsvtmhapjkjcpznfllq.supabase.co/functions/v1/api-gateway
+    description: Produção
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Chave de API gerada em Configurações > API
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+
+    Client:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        niche:
+          type: string
+        language:
+          type: string
+        tone_of_voice:
+          type: string
+        primary_archetype:
+          type: string
+        secondary_archetype:
+          type: string
+        ideal_client:
+          type: string
+        differentials:
+          type: string
+        products_services:
+          type: string
+        audience_pain_points:
+          type: string
+        communication_style:
+          type: array
+          items:
+            type: string
+        awareness_level:
+          type: array
+          items:
+            type: string
+        likes:
+          type: string
+        dislikes:
+          type: string
+        briefing_general:
+          type: string
+        logo_url:
+          type: string
+        social_links:
+          type: object
+        address_country:
+          type: string
+        address_state:
+          type: string
+        address_city:
+          type: string
+        assets_folder_url:
+          type: string
+        created_by:
+          type: string
+          format: uuid
+          description: UUID do usuário que criou o cliente
+        created_by_email:
+          type: string
+          description: Email do usuário que criou o cliente (resolvido automaticamente)
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ClientCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        niche:
+          type: string
+        language:
+          type: string
+        tone_of_voice:
+          type: string
+        primary_archetype:
+          type: string
+        secondary_archetype:
+          type: string
+        ideal_client:
+          type: string
+        differentials:
+          type: string
+        products_services:
+          type: string
+        briefing_general:
+          type: string
+        social_links:
+          type: object
+
+    Planning:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        client_id:
+          type: string
+          format: uuid
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        observations:
+          type: string
+        document_url:
+          type: string
+          description: URL do documento de referência anexado ao planejamento
+        is_active:
+          type: boolean
+        public_token:
+          type: string
+          format: uuid
+        created_by:
+          type: string
+          format: uuid
+          description: UUID do usuário que criou o planejamento
+        created_by_email:
+          type: string
+          description: Email do usuário que criou o planejamento (resolvido automaticamente)
+        created_at:
+          type: string
+          format: date-time
+
+    PlanningCreate:
+      type: object
+      required:
+        - client_id
+        - title
+      properties:
+        client_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        observations:
+          type: string
+        document_base64:
+          type: string
+          format: byte
+          description: Conteúdo do documento em base64 (formatos aceitos: pdf, html, doc, docx, xls, xlsx, ppt, pptx)
+        document_extension:
+          type: string
+          description: Extensão do arquivo (ex: pdf, docx, xlsx). Obrigatório quando document_base64 é enviado.
+          enum: [pdf, html, doc, docx, xls, xlsx, ppt, pptx]
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title_internal:
+          type: string
+        caption:
+          type: string
+        art_text:
+          type: string
+        hashtags:
+          type: string
+        scheduled_at:
+          type: string
+          format: date-time
+        planning_id:
+          type: string
+          format: uuid
+        client_id:
+          type: string
+          format: uuid
+        status_id:
+          type: string
+          format: uuid
+        format_id:
+          type: string
+          format: uuid
+        type_id:
+          type: string
+          format: uuid
+        observations:
+          type: string
+        reference_links:
+          type: string
+        social_account_ids:
+          type: array
+          items:
+            type: string
+        post_media:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostMedia"
+        created_by:
+          type: string
+          format: uuid
+          description: UUID do usuário que criou o post
+        created_by_email:
+          type: string
+          description: Email do usuário que criou o post (resolvido automaticamente)
+        created_at:
+          type: string
+          format: date-time
+
+    PostCreate:
+      type: object
+      properties:
+        title_internal:
+          type: string
+        caption:
+          type: string
+        art_text:
+          type: string
+        hashtags:
+          type: string
+        scheduled_at:
+          type: string
+          format: date-time
+        planning_id:
+          type: string
+          format: uuid
+        client_id:
+          type: string
+          format: uuid
+        format_id:
+          type: string
+          format: uuid
+        type_id:
+          type: string
+          format: uuid
+        observations:
+          type: string
+      description: "Nota: o campo status_id não é aceito aqui. Use PUT /posts/{id}/status para alterar o status."
+
+    PostMedia:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        file_url:
+          type: string
+        file_type:
+          type: string
+        sort_order:
+          type: integer
+        is_internal:
+          type: boolean
+        is_cover:
+          type: boolean
+
+    ConfigOption:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+        color_hex:
+          type: string
+        sort_order:
+          type: integer
+        is_active:
+          type: boolean
+
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        role:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    PublicLink:
+      type: object
+      properties:
+        public_link:
+          type: string
+          format: uri
+
+paths:
+  /clients:
+    get:
+      summary: Listar clientes
+      tags: [Clientes]
+      responses:
+        "200":
+          description: Lista de clientes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Client"
+    post:
+      summary: Criar cliente
+      tags: [Clientes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientCreate"
+      responses:
+        "201":
+          description: Cliente criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Client"
+
+  /clients/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Detalhe do cliente
+      tags: [Clientes]
+      responses:
+        "200":
+          description: Dados do cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Client"
+    put:
+      summary: Atualizar cliente
+      tags: [Clientes]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientCreate"
+      responses:
+        "200":
+          description: Cliente atualizado
+    delete:
+      summary: Excluir cliente
+      tags: [Clientes]
+      responses:
+        "200":
+          description: Cliente excluído
+
+  /clients/{id}/public-link:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Obter link público do briefing do cliente
+      tags: [Clientes]
+      responses:
+        "200":
+          description: URL do briefing público
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicLink"
+
+  /backlog:
+    get:
+      summary: Listar posts do backlog
+      tags: [Backlog]
+      responses:
+        "200":
+          description: Posts sem planejamento
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Post"
+    post:
+      summary: Criar post no backlog
+      tags: [Backlog]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+      responses:
+        "201":
+          description: Post criado no backlog
+
+  /backlog/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Detalhe do post no backlog
+      tags: [Backlog]
+      responses:
+        "200":
+          description: Dados do post
+    put:
+      summary: Atualizar post no backlog
+      tags: [Backlog]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+      responses:
+        "200":
+          description: Post atualizado
+    delete:
+      summary: Excluir post do backlog
+      tags: [Backlog]
+      responses:
+        "200":
+          description: Post excluído
+
+  /plannings:
+    get:
+      summary: Listar planejamentos
+      tags: [Planejamentos]
+      responses:
+        "200":
+          description: Lista de planejamentos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Planning"
+    post:
+      summary: Criar planejamento
+      tags: [Planejamentos]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanningCreate"
+      responses:
+        "201":
+          description: Planejamento criado
+
+  /plannings/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Detalhe do planejamento (inclui posts)
+      tags: [Planejamentos]
+      responses:
+        "200":
+          description: Planejamento com posts
+    put:
+      summary: Atualizar planejamento
+      tags: [Planejamentos]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanningCreate"
+      responses:
+        "200":
+          description: Planejamento atualizado
+    delete:
+      summary: Excluir planejamento
+      tags: [Planejamentos]
+      responses:
+        "200":
+          description: Planejamento excluído
+
+  /plannings/{id}/public-link:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Obter link público de aprovação do planejamento
+      tags: [Planejamentos]
+      responses:
+        "200":
+          description: URL de aprovação pública
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicLink"
+
+  /posts:
+    get:
+      summary: Listar posts (últimos 100)
+      tags: [Posts]
+      responses:
+        "200":
+          description: Lista de posts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Post"
+    post:
+      summary: Criar post
+      description: "O campo status_id é ignorado. Use PUT /posts/{id}/status para definir o status."
+      tags: [Posts]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+      responses:
+        "201":
+          description: Post criado
+
+  /posts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Detalhe do post
+      tags: [Posts]
+      responses:
+        "200":
+          description: Dados do post
+    put:
+      summary: Atualizar post (sem status)
+      tags: [Posts]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+      responses:
+        "200":
+          description: Post atualizado
+    delete:
+      summary: Excluir post
+      tags: [Posts]
+      responses:
+        "200":
+          description: Post excluído
+
+  /posts/{id}/status:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    put:
+      summary: Atualizar status do post (com validações)
+      description: |
+        Atualiza o status do post aplicando regras de negócio:
+        - Se o status alvo for de agendamento, valida data e contas sociais
+      tags: [Posts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status_id
+              properties:
+                status_id:
+                  type: string
+                  format: uuid
+      responses:
+        "200":
+          description: Status atualizado
+        "422":
+          description: Validação falhou
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /posts/ai-generate:
+    post:
+      summary: Gerar posts com IA
+      description: Encaminha para a edge function de geração de conteúdo com IA.
+      tags: [Posts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                planning_id:
+                  type: string
+                  format: uuid
+                client_id:
+                  type: string
+                  format: uuid
+                prompt:
+                  type: string
+      responses:
+        "200":
+          description: Posts gerados com sucesso
+
+  /users:
+    get:
+      summary: Listar colaboradores
+      tags: [Configuração]
+      responses:
+        "200":
+          description: Lista de colaboradores
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+
+  /config/status:
+    get:
+      summary: Listar status do workflow
+      tags: [Configuração]
+      responses:
+        "200":
+          description: Lista de status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConfigOption"
+
+  /config/types:
+    get:
+      summary: Listar tipos de conteúdo
+      tags: [Configuração]
+      responses:
+        "200":
+          description: Lista de tipos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConfigOption"
+
+  /config/formats:
+    get:
+      summary: Listar formatos de mídia
+      tags: [Configuração]
+      responses:
+        "200":
+          description: Lista de formatos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConfigOption"
+
+  /config/prompt:
+    get:
+      summary: Ler prompt de geração de planejamento
+      tags: [Configuração]
+      responses:
+        "200":
+          description: Prompt atual
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      prompt:
+                        type: string
+    put:
+      summary: Atualizar prompt de geração de planejamento
+      tags: [Configuração]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+              properties:
+                prompt:
+                  type: string
+      responses:
+        "200":
+          description: Prompt atualizado

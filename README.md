@@ -87,4 +87,5 @@ Copy-Item SKILL.md "$env:USERPROFILE\.claude\commands\nome-da-skill.md"
 | [efsm-copy](skills/efsm-copy/README.md) | Copywriting para Landing Pages, Meta Ads, artigos de blog e redes sociais |
 | [efsm-crm](skills/efsm-crm/SKILL.md) | Processa o ZIP White Label do CRM fornecedor e gera a versão EFSM com identidade visual |
 | [efsm-n8n](skills/efsm-n8n/SKILL.md) | Projeta, constrói e otimiza workflows de automação no n8n da EFSM |
+| [efsm-social](skills/efsm-social/README.md) | Estratégia, calendário editorial, análise de planejamento, auditoria de perfil e métricas de social media |
 | [gabs-design](skills/gabs-design/README.md) | Engenharia de prompt para IA generativa (Gemini, Firefly, DALL-E, Midjourney) |
